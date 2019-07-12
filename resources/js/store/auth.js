@@ -4,7 +4,10 @@ const state = {
     user: null
 }
 
-const getters = {}
+const getters = {
+    check: state => !! state.user,
+    username: state => state.user ? state.user.name : ''
+}
 
 // nutations の第一引数は必ず state とする 仮引数は　第二引数で渡す
 const mutations = {
@@ -20,12 +23,17 @@ const actions = {
         context.commit('setUser', response.data)
     },
     async login (context, data) {
-        const responce = await axios.post('/api/login', data)
-        context.commit('setUser', responce.data)
+        const response = await axios.post('/api/login', data)
+        context.commit('setUser', response.data)
     },
     async logout (context) {
-        const responce = await axios.post('/api/logout')
+        const response = await axios.post('/api/logout')
         context.commit('setUser', null)
+    },
+    async currentUser (context) {
+        const response = await axios.get('/api/user')
+        const user = response.data || null
+        context.commit('setUser', user)
     }
 }
 
