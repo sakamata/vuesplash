@@ -7,6 +7,8 @@ import Login from './pages/Login.vue'
 
 import store from './store'
 
+import SystemError from './pages/errors/System.vue'
+
 // VueRouterプラグインを利用する。
 // これによって<RouterView /> コンポーネント等を使う事ができる
 Vue.use(VueRouter)
@@ -27,7 +29,11 @@ const routes = [
                 next()
             }
         }
-    }
+    },
+    {
+        path: '/500',
+        component: SystemError
+    },
 ]
 
 // VurRouterインスタンスを作成する
